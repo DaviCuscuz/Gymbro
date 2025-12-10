@@ -42,10 +42,12 @@ Conexão com API:
 
     Certifique-se que o Backend Django esteja rodando em http://127.0.0.1:8000.
 
+
 ## 👨‍💻 Squad de Desenvolvimento
 
-| Nome | Cargo |
-| **Davi** | Full Stack Developer |
-| **João Rafael** | Front-end Developer |
-| **Thiago Ribeiro** | Back-end Developer |
-| **André** | QA / Tester |
+🚀 **O Time que fez acontecer:**
+
+* 🦁 **Davi** — *Full Stack Developer*
+* 🎨 **João Rafael** — *Front-end Developer*
+* ⚙️ **Thiago Ribeiro** — *Back-end Developer*
+* 🐛 **André** — *QA / Tester*
