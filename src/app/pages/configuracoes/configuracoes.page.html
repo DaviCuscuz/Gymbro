@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Editar Perfil</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-list>
+    
+    <ion-item>
+      <ion-label position="stacked">Seu Nome</ion-label>
+      <ion-input [(ngModel)]="nome" type="text" placeholder="Ex: João"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Sua Altura (em cm)</ion-label>
+      <ion-input [(ngModel)]="altura" type="number" placeholder="Ex: 175"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label position="stacked">Seu Peso (em kg)</ion-label>
+      <ion-input [(ngModel)]="peso" type="number" placeholder="Ex: 70"></ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-button (click)="salvarPerfil()" expand="block" class="ion-margin-top">
+    Salvar Perfil
+  </ion-button>
+</ion-content>

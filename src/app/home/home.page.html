@@ -1,0 +1,76 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Gym Bro</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div class="welcome-text">
+    <p>Bem-vindo de volta</p>
+    <h2>{{ usuario ? usuario.nome : 'Gym Bro' }}</h2>
+  </div>
+
+  <ion-card class="imc-card">
+    <ion-card-content>
+      
+      <div *ngIf="!usuario" class="profile-prompt">
+        <h4>Complete seu perfil!</h4>
+        <p>Vá em Extras -> Configurações para adicionar seus dados e calcular seu IMC.</p>
+        <ion-button routerLink="/configuracoes" fill="solid" size="small" color="primary">
+          Ir para Configurações
+        </ion-button>
+      </div>
+
+      <div *ngIf="usuario" class="imc-info">
+        <div>
+          <h3>Sua Ficha</h3>
+          <p>Peso: <strong>{{ usuario.peso }} kg</strong></p>
+          <p>Altura: <strong>{{ usuario.altura }} cm</strong></p>
+          <p>Status: <strong>{{ usuario.statusImc }}</strong></p> </div>
+        <div class="imc-circle">
+          <span>{{ usuario.imc }}</span>
+          <small>IMC</small>
+        </div>
+      </div>
+    </ion-card-content>
+  </ion-card>
+
+  <div class="section-header">
+    <h3>Novidades</h3>
+    <a (click)="mostrarPopUpEmDesenvolvimento()">Veja mais</a>
+  </div>
+
+  <div class="novidades">
+    <ion-img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b"></ion-img>
+    <ion-img src="https://images.unsplash.com/photo-1598970434795-0c54fe7c0648"></ion-img>
+  </div>
+
+  <div class="section-header">
+    <h3>Exercícios</h3>
+    <a (click)="mostrarPopUpEmDesenvolvimento()">Veja mais</a>
+  </div>
+
+  <div class="exercicios">
+    <ion-card *ngFor="let ex of exercicios" class="exercicio-card" (click)="mostrarPopUpEmDesenvolvimento()">
+      <ion-card-content>
+        <div class="exercicio-header">
+          <ion-img src="https://cdn-icons-png.flaticon.com/512/2331/2331970.png"></ion-img>
+          <div>
+            <h4>{{ ex.nome }}</h4>
+            <p>{{ ex.calorias }} Calorias queimadas | {{ ex.tempo }} minutos</p>
+          </div>
+        </div>
+        <ion-progress-bar [value]="ex.progresso" color="success"></ion-progress-bar>
+      </ion-card-content>
+    </ion-card>
+  </div>
+
+  <ion-button expand="block" shape="round" class="btn-criar" color="primary" (click)="mostrarOpcoesExercicio()">
+    Criar exercício
+  </ion-button>
+
+</ion-content>

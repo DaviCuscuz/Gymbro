@@ -1,0 +1,7 @@
+ion-img {
+  width: 100%;
+  height: 100px; // Pode ajustar esta altura
+  object-fit: cover; // Garante que a foto cubra o espaço sem distorcer
+  border-radius: 8px;
+  background: var(--ion-color-medium-shade);
+}

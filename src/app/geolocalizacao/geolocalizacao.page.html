@@ -1,0 +1,19 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Rastreador de Corrida</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  
+  <div *ngIf="loading" class="loading-spinner">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>A carregar mapa e GPS...</p>
+  </div>
+  
+  <div id="map"></div>
+
+</ion-content>

@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Minha Galeria</ion-title>
+  </ion-toolbar>
+
+  <ion-toolbar color="primary">
+    <ion-segment [(ngModel)]="currentCategory" (ionChange)="segmentChanged($event)" scrollable>
+      
+      <ion-segment-button value="todas">
+        <ion-label>Todas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="corpo-todo">
+        <ion-label>Corpo Todo</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="pernas">
+        <ion-label>Pernas</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="bracos">
+        <ion-label>Braços</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="superiores">
+        <ion-label>Superiores</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="outros">
+        <ion-label>Outros</ion-label>
+      </ion-segment-button>
+
+    </ion-segment>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+
+  <div *ngIf="isLoading" class="ion-text-center ion-padding">
+    <ion-spinner name="crescent"></ion-spinner>
+    <p>A carregar a galeria...</p>
+  </div>
+
+  <div *ngIf="!isLoading && errorMessage" class="ion-text-center ion-padding">
+    <ion-text color="danger">
+      <p>{{ errorMessage }}</p>
+    </ion-text> 
+  </div>
+
+  <div *ngIf="!isLoading && !errorMessage && filteredPhotos.length === 0" class="ion-text-center ion-padding">
+    <ion-text color="medium">
+      <p>Nenhuma foto encontrada nesta categoria. Tire uma foto na página da Câmera!</p>
+    </ion-text>
+  </div>
+
+  <ion-grid *ngIf="!isLoading && filteredPhotos.length > 0">
+    <ion-row>
+      <ion-col size="4" *ngFor="let photo of filteredPhotos">
+        <ion-img [src]="photo.path"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>

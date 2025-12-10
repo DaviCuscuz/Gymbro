@@ -1,0 +1,43 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Foto de Progresso</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-text>
+    <p>Registre seu progresso no "Gym Bro" tirando uma foto ou escolhendo da sua galeria.</p>
+  </ion-text>
+
+  <ion-button expand="block" (click)="takePicture()">
+    <ion-icon slot="start" name="camera"></ion-icon>
+    Tirar Foto
+  </ion-button>
+
+  <ion-button expand="block" (click)="pickFromGallery()" color="secondary" class="ion-margin-top">
+    <ion-icon slot="start" name="images"></ion-icon>
+    Escolher da Galeria
+  </ion-button>
+
+  <div *ngIf="errorMessage" class="ion-text-center ion-margin-top">
+    <ion-text color="danger">
+      <p>{{ errorMessage }}</p>
+    </ion-text>
+  </div>
+
+  <div class="image-preview ion-margin-top" *ngIf="photoUrl">
+    <ion-text>
+      <h4>Sua Foto (Preview):</h4>
+    </ion-text>
+    <ion-img [src]="photoUrl"></ion-img>
+
+    <ion-button expand="block" (click)="savePicture()" [disabled]="isSaving" color="success" class="ion-margin-top">
+      <ion-icon slot="start" name="save"></ion-icon>
+      {{ isSaving ? 'Salvando...' : 'Salvar Foto' }}
+    </ion-button>
+  </div>
+
+</ion-content>

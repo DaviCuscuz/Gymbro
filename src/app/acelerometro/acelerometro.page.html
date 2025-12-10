@@ -1,0 +1,50 @@
+<ion-header>
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Contador de Passos</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <ion-text>
+    <p>Inicie o contador e coloque o celular no bolso ou balance-o para simular passos.</p>
+  </ion-text>
+
+  <ion-button expand="block" (click)="startAccelerometer()" [disabled]="accelListener !== null">
+    <ion-icon slot="start" name="play"></ion-icon>
+    Iniciar Contador
+  </ion-button>
+  
+  <ion-button expand="block" (click)="stopAccelerometer()" [disabled]="accelListener === null" color="danger" class="ion-margin-top">
+    <ion-icon slot="start" name="stop"></ion-icon>
+    Parar Contador
+  </ion-button>
+
+  <ion-card class="steps-card ion-text-center ion-margin-top">
+    <ion-card-content>
+      <ion-icon name="walk"></ion-icon>
+
+      <div *ngIf="accelListener">
+        <h4>Calculando caminhada...</h4>
+        <p class="steps-count">{{ passos }}</p>
+      </div>
+
+      <div *ngIf="!accelListener">
+        <h4>Contador Parado</h4>
+        <p class="steps-count">{{ passos }}</p>
+        <ion-text color="medium">
+          <small>Clique em "Iniciar" para começar!</small>
+        </ion-text>
+      </div>
+      
+    </ion-card-content>
+  </ion-card>
+
+  <div *ngIf="errorMessage" class="ion-text-center ion-margin-top">
+    <ion-text color="danger">
+      <p>{{ errorMessage }}</p>
+    </ion-text>
+  </div>
+</ion-content>
