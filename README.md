@@ -1,6 +1,6 @@
 ---
 
-### 2. README do Frontend (Ionic) 📱
+### README do Frontend (Ionic) 📱
 
 Crie um arquivo chamado `README.md` na pasta raiz do Ionic (junto com o `ionic.config.json`) e cole isso:
 
@@ -48,7 +48,9 @@ Bash
 
 ## 👨‍💻 Squad de Desenvolvimento
 
-![Davi](https://img.shields.io/badge/Davi-Full%20Stack-blue?style=for-the-badge&logo=github)
-![João Rafael](https://img.shields.io/badge/João%20Rafael-Front--end-green?style=for-the-badge&logo=ionic)
-![Thiago Ribeiro](https://img.shields.io/badge/Thiago%20Ribeiro-Back--end-red?style=for-the-badge&logo=django)
-![André](https://img.shields.io/badge/André-QA%20%2F%20Tester-orange?style=for-the-badge&logo=test)
+| Nome | Cargo |
+| :--- | :--- |
+| **Davi** | Full Stack Developer |
+| **João Rafael** | Front-end Developer |
+| **Thiago Ribeiro** | Back-end Developer |
+| **André** | QA / Tester |
