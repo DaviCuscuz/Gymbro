@@ -1,0 +1,60 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/login" text=""></ion-back-button>
+    </ion-buttons>
+    <ion-title>Criar Conta</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  
+  <div style="margin-top: 40px; text-align: center; margin-bottom: 30px;">
+    <h1>Faça parte do time! 💪</h1>
+    <p style="color: var(--ion-color-medium);">Preencha para começar seus treinos.</p>
+  </div>
+
+  <ion-list lines="full">
+    
+    <ion-item>
+      <ion-input 
+        label="Usuário" 
+        labelPlacement="floating" 
+        [(ngModel)]="user.username" 
+        type="text">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input 
+        label="E-mail" 
+        labelPlacement="floating" 
+        [(ngModel)]="user.email" 
+        type="email">
+      </ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input 
+        label="Senha" 
+        labelPlacement="floating" 
+        [(ngModel)]="user.password" 
+        type="password">
+      </ion-input>
+    </ion-item>
+
+  </ion-list>
+
+  <ion-button expand="block" (click)="cadastrar()" style="margin-top: 30px;">
+    CADASTRAR E ENTRAR
+  </ion-button>
+
+  <ion-toast
+    [isOpen]="isToastOpen"
+    [message]="toastMessage"
+    [duration]="3000"
+    [color]="toastColor"
+    (didDismiss)="isToastOpen = false">
+  </ion-toast>
+
+</ion-content>

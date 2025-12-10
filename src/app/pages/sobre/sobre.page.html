@@ -1,44 +1,80 @@
 <ion-header>
   <ion-toolbar color="primary">
-    <ion-title>Sobre o App</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <ion-title>Sobre o Projeto</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content class="ion-padding">
-  <h2>Gym Bro</h2>
 
-  <p>
-    O <strong>Gym Bro</strong> é um aplicativo desenvolvido como parte da atividade prática da disciplina, que exige a
-    construção de uma aplicação seguindo os moldes apresentados em sala e no material disponibilizado pelo professor.
-  </p>
+  <div class="header-project">
+    <ion-icon name="code-slash-outline" size="large" color="primary"></ion-icon>
+    <h1>GymBro App</h1>
+    <p>O seu parceiro de treino Full Stack.</p>
+    <ion-chip color="success">
+      <ion-label>v{{ versaoApp }}</ion-label>
+    </ion-chip>
+  </div>
 
-  <p>
-    O projeto cumpre os <strong>requisitos obrigatórios</strong>, incluindo o uso de:
-  </p>
-
-  <ul>
-    <li>Componentes e múltiplas páginas;</li>
-    <li>Recursos nativos do dispositivo, como <strong>Câmera</strong>, <strong>Flash</strong>, <strong>Geolocalização</strong> e <strong>Acelerômetro</strong>.</li>
-  </ul>
-
-  <p>
-    Além de atender aos requisitos mínimos, o <strong>Gym Bro</strong> foi <em>personalizado</em> para se aproximar de um aplicativo real
-    voltado ao acompanhamento de treinos, com uma interface própria e identidade visual inspirada em apps de academia.
-  </p>
-
-  <p>
-    O objetivo é oferecer uma base funcional e flexível para futuras expansões, como registro de treinos, monitoramento de progresso
-    e integração com sensores, consolidando a ideia de um “parceiro de treino digital”.
-  </p>
-
-  <ion-card color="light" class="ion-margin-top">
+  <ion-card>
     <ion-card-header>
-      <ion-card-title>Informações do Desenvolvedor</ion-card-title>
+      <ion-card-title>📖 O que é isso?</ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <p><strong>Nome:</strong> Davi Nunes</p>
-      <p><strong>Instituição:</strong> Instituto Federal do Piauí (IFPI)</p>
-      <p><strong>Curso:</strong> Tecnologia em Análise e Desenvolvimento de Sistemas</p>
+      O <strong>GymBro</strong> é uma aplicação completa para gestão de treinos, fichas e monitoramento de cardio. O objetivo é demonstrar a integração robusta entre um frontend mobile moderno e um backend seguro.
     </ion-card-content>
   </ion-card>
-</ion-content>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>🛠️ Tech Stack</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      
+      <ion-list lines="none">
+        
+        <ion-item>
+          <ion-icon name="phone-portrait-outline" slot="start" color="tertiary"></ion-icon>
+          <ion-label>
+            <h2>Frontend (Mobile)</h2>
+            <p>Ionic 7 + Angular + Capacitor</p>
+          </ion-label>
+        </ion-item>
+
+        <ion-item>
+          <ion-icon name="server-outline" slot="start" color="warning"></ion-icon>
+          <ion-label>
+            <h2>Backend (API)</h2>
+            <p>Python + Django REST Framework</p>
+          </ion-label>
+        </ion-item>
+
+      </ion-list>
+
+      <div class="tech-chips">
+        <ion-chip outline color="secondary">JWT Auth</ion-chip>
+        <ion-chip outline color="secondary">SQLite</ion-chip>
+        <ion-chip outline color="secondary">Geolocation</ion-chip>
+        <ion-chip outline color="secondary">Camera API</ion-chip>
+      </div>
+
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card>
+    <ion-card-header>
+      <ion-card-title>👨‍💻 Desenvolvedores</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="none">
+        <ion-item>
+          <ion-icon name="person-outline" slot="start" color="medium"></ion-icon>
+          <ion-label>
+            <h2>Davi Cuscuz</h2>
+            <p>Full Stack Developer</p>
+          </ion-label>
+        </ion-item>
+        <ion-item>
+          <ion-icon name="logo-github" slot="start" color="medium"></ion-icon>

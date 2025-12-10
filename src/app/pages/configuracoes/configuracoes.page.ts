@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms'; // <-- Importar FormsModule
+import { FormsModule } from '@angular/forms';
 import {
   IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton,
-  IonList, IonItem, IonLabel, IonInput, IonButton, AlertController
+  IonList, IonItem, IonInput, IonButton, 
+  IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent,
+  AlertController, ToastController
 } from '@ionic/angular/standalone';
-// Importa nosso serviço
-import { ProfileService } from '../../services/profile.service'; // Ajuste o caminho se necessário
+import { ProfileService, UserProfile } from '../../services/profile.service';
 
 @Component({
   selector: 'app-configuracoes',
@@ -15,55 +16,98 @@ import { ProfileService } from '../../services/profile.service'; // Ajuste o cam
   standalone: true,
   imports: [
     CommonModule,
-    FormsModule, // <-- Adicionar FormsModule aqui
+    FormsModule,
     IonHeader, IonToolbar, IonTitle, IonContent, IonButtons, IonBackButton,
-    IonList, IonItem, IonLabel, IonInput, IonButton // <-- Componentes corretos
+    IonList, IonItem, IonInput, IonButton,
+    IonCard, IonCardHeader, IonCardSubtitle, IonCardTitle, IonCardContent
   ]
 })
 export class ConfiguracoesPage implements OnInit {
   
-  nome: string = '';
-  altura: number | null = null;
-  peso: number | null = null;
+  perfil: UserProfile = {};
 
   constructor(
     private profileService: ProfileService,
-    private alertCtrl: AlertController
+    private alertCtrl: AlertController,
+    private toastCtrl: ToastController
   ) { }
 
   ngOnInit() {
-    this.loadData();
+    this.carregarDados();
   }
 
-  // Carrega os dados salvos quando a página abre
-  async loadData() {
-    const profile = await this.profileService.loadProfile();
-    if (profile) {
-      this.nome = profile.nome;
-      this.altura = profile.altura;
-      this.peso = profile.peso;
-    }
+  carregarDados() {
+    this.profileService.getMeuPerfil().subscribe({
+      next: (data) => { this.perfil = data; },
+      error: (err) => {
+        console.error(err);
+        this.mostrarToast('Erro ao carregar perfil.', 'danger');
+      }
+    });
   }
 
-  // Salva os dados do formulário
-  async salvarPerfil() {
-    if (!this.nome || !this.altura || !this.peso) {
-      this.showAlert('Erro', 'Preencha todos os campos.');
+  salvarPerfil() {
+    if (!this.perfil.id) {
+      this.mostrarToast('Erro: Perfil não carregado.', 'warning');
       return;
     }
 
-    try {
-      await this.profileService.saveProfile(this.nome, this.altura, this.peso);
-      this.showAlert('Sucesso!', 'Seu perfil foi atualizado.');
-    } catch (e) {
-      this.showAlert('Erro', 'Não foi possível salvar seu perfil.');
-    }
+    this.profileService.salvarPerfil(this.perfil).subscribe({
+      next: () => { this.mostrarToast('Perfil atualizado com sucesso!', 'success'); },
+      error: (err) => {
+        console.error(err);
+        this.mostrarToast('Erro ao atualizar.', 'danger');
+      }
+    });
   }
 
-  async showAlert(header: string, message: string) {
-    const alert = await this.alertCtrl.create({
-      header, message, buttons: ['OK']
+  // --- MÁSCARAS (Input Masks) ---
+
+  formatarCPF(event: any) {
+    let valor = event.target.value.replace(/\D/g, ''); // Remove letras
+    
+    if (valor.length > 11) valor = valor.substring(0, 11); // Limita tamanho
+
+    // Adiciona pontos e traço
+    if (valor.length > 9) {
+      valor = valor.replace(/(\d{3})(\d{3})(\d{3})(\d+)/, '$1.$2.$3-$4');
+    } else if (valor.length > 6) {
+      valor = valor.replace(/(\d{3})(\d{3})(\d+)/, '$1.$2.$3');
+    } else if (valor.length > 3) {
+      valor = valor.replace(/(\d{3})(\d+)/, '$1.$2');
+    }
+
+    event.target.value = valor; // Atualiza o input visualmente
+    this.perfil.cpf = valor;    // Atualiza o modelo
+  }
+
+  formatarTelefone(event: any) {
+    let valor = event.target.value.replace(/\D/g, '');
+    
+    if (valor.length > 11) valor = valor.substring(0, 11);
+
+    // Adiciona parênteses e traço
+    if (valor.length > 10) {
+      // Celular (11 dígitos): (11) 91234-5678
+      valor = valor.replace(/^(\d{2})(\d{5})(\d{4})/, '($1) $2-$3');
+    } else if (valor.length > 5) {
+      // Fixo ou digitando: (11) 1234-5678
+      valor = valor.replace(/^(\d{2})(\d{4})(\d{0,4})/, '($1) $2-$3');
+    } else if (valor.length > 2) {
+      // Só DDD: (11) 123...
+      valor = valor.replace(/^(\d{2})(\d{0,5})/, '($1) $2');
+    }
+
+    event.target.value = valor;
+    this.perfil.telefone = valor;
+  }
+
+  async mostrarToast(msg: string, color: string) {
+    const toast = await this.toastCtrl.create({
+      message: msg,
+      duration: 2000,
+      color: color
     });
-    await alert.present();
+    toast.present();
   }
 }

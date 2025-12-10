@@ -1,13 +1,19 @@
 import { Injectable } from '@angular/core';
-import { BehaviorSubject } from 'rxjs'; // Importa o BehaviorSubject
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
-// Define a "cara" do nosso objeto de usuário
 export interface UserProfile {
-  nome: string;
-  altura: number; // em cm
-  peso: number;   // em kg
-  imc: number;
-  statusImc: string;
+  id?: number;
+  user?: number;
+  nome_completo?: string;
+  email?: string;
+  telefone?: string;
+  cpf?: string;        // <--- Novo
+  endereco?: string;   // <--- Novo
+  cidade?: string;     // <--- O erro pedia isso
+  estado?: string;     // <--- O erro pedia isso
+  altura?: number;
+  peso?: number;
 }
 
 @Injectable({
@@ -15,50 +21,29 @@ export interface UserProfile {
 })
 export class ProfileService {
   
-  // 1. Criamos um "contêiner" de dados em memória
-  // Ele começa nulo.
-  private profileSubject = new BehaviorSubject<UserProfile | null>(null);
+  private apiUrl = 'http://127.0.0.1:8000/api'; 
 
-  // 2. Criamos um "Observable" que as páginas podem "ouvir"
-  public profile$ = this.profileSubject.asObservable();
+  constructor(private http: HttpClient) { }
 
-  constructor() { }
-
-  // Carrega o perfil da memória
-  // (Nesta versão, ele só retorna o valor atual)
-  async loadProfile(): Promise<UserProfile | null> {
-    return this.profileSubject.getValue();
+  private getHeaders(): HttpHeaders {
+    const token = localStorage.getItem('access_token');
+    return new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
   }
 
-  // Salva o perfil e calcula o IMC
-  async saveProfile(nome: string, alturaCm: number, pesoKg: number): Promise<UserProfile> {
-    let imc = 0;
-    let statusImc = 'Informações incompletas';
-    
-    // Converte altura de CM para Metros para o cálculo
-    if (alturaCm > 0 && pesoKg > 0) {
-      const alturaM = alturaCm / 100;
-      imc = parseFloat((pesoKg / (alturaM * alturaM)).toFixed(1));
+  getMeuPerfil(): Observable<UserProfile> {
+    return this.http.get<UserProfile>(`${this.apiUrl}/profiles/me/`, { 
+      headers: this.getHeaders() 
+    });
+  }
 
-      // Define o status
-      if (imc < 18.5) statusImc = 'Abaixo do peso';
-      else if (imc < 24.9) statusImc = 'Peso saudável';
-      else if (imc < 29.9) statusImc = 'Sobrepeso';
-      else statusImc = 'Obesidade';
+  salvarPerfil(dados: UserProfile): Observable<UserProfile> {
+    if (dados.id) {
+        return this.http.patch<UserProfile>(`${this.apiUrl}/profiles/${dados.id}/`, dados, {
+            headers: this.getHeaders()
+        });
     }
-
-    const profile: UserProfile = {
-      nome: nome,
-      altura: alturaCm,
-      peso: pesoKg,
-      imc: imc,
-      statusImc: statusImc
-    };
-    
-    // 3. Em vez de salvar no Storage, nós "avisamos" 
-    // a todos os ouvintes (a Home Page) sobre o novo perfil.
-    this.profileSubject.next(profile);
-
-    return profile;
+    return new Observable();
   }
 }

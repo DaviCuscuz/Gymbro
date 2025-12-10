@@ -1,76 +1,123 @@
-<ion-header>
+<ion-header [translucent]="true">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Gym Bro</ion-title>
+    <ion-title>Dashboard</ion-title>
+    <ion-buttons slot="end">
+      <ion-button routerLink="/configuracoes" shape="round">
+        <ion-avatar style="width: 35px; height: 35px; border: 2px solid white;">
+          <img src="https://ionicframework.com/docs/img/demos/avatar.svg" />
+        </ion-avatar>
+      </ion-button>
+    </ion-buttons>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
+<ion-content [fullscreen]="true" class="ion-padding">
 
-  <div class="welcome-text">
-    <p>Bem-vindo de volta</p>
-    <h2>{{ usuario ? usuario.nome : 'Gym Bro' }}</h2>
-  </div>
-
-  <ion-card class="imc-card">
+  <ion-card button routerLink="/configuracoes" class="imc-card interactable">
     <ion-card-content>
-      
-      <div *ngIf="!usuario" class="profile-prompt">
-        <h4>Complete seu perfil!</h4>
-        <p>Vá em Extras -> Configurações para adicionar seus dados e calcular seu IMC.</p>
-        <ion-button routerLink="/configuracoes" fill="solid" size="small" color="primary">
-          Ir para Configurações
-        </ion-button>
-      </div>
-
-      <div *ngIf="usuario" class="imc-info">
-        <div>
-          <h3>Sua Ficha</h3>
-          <p>Peso: <strong>{{ usuario.peso }} kg</strong></p>
-          <p>Altura: <strong>{{ usuario.altura }} cm</strong></p>
-          <p>Status: <strong>{{ usuario.statusImc }}</strong></p> </div>
-        <div class="imc-circle">
-          <span>{{ usuario.imc }}</span>
-          <small>IMC</small>
+      <div class="imc-layout">
+        <div class="imc-info">
+          <h3>Seu IMC</h3>
+          <ion-chip [color]="imcColor">{{ imcStatus }}</ion-chip>
+          <p>Clique para atualizar medidas</p>
+        </div>
+        <div class="imc-value" [style.color]="'var(--ion-color-' + imcColor + ')'">
+          {{ imc }}
         </div>
       </div>
     </ion-card-content>
   </ion-card>
 
   <div class="section-header">
-    <h3>Novidades</h3>
-    <a (click)="mostrarPopUpEmDesenvolvimento()">Veja mais</a>
+    <h3>🏋️‍♂️ Fichas de Treino</h3>
+    <ion-button fill="clear" size="small" routerLink="/fichas" class="hover-link">
+      Veja mais <ion-icon name="chevron-forward-outline" slot="end"></ion-icon>
+    </ion-button>
   </div>
-
-  <div class="novidades">
-    <ion-img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b"></ion-img>
-    <ion-img src="https://images.unsplash.com/photo-1598970434795-0c54fe7c0648"></ion-img>
-  </div>
-
-  <div class="section-header">
-    <h3>Exercícios</h3>
-    <a (click)="mostrarPopUpEmDesenvolvimento()">Veja mais</a>
-  </div>
-
-  <div class="exercicios">
-    <ion-card *ngFor="let ex of exercicios" class="exercicio-card" (click)="mostrarPopUpEmDesenvolvimento()">
+  
+  <div class="horizontal-scroll" *ngIf="fichas.length > 0; else noFicha">
+    <ion-card *ngFor="let ficha of fichas" button class="scroll-card interactable">
+      <ion-card-header>
+        <ion-card-subtitle>Ficha</ion-card-subtitle>
+        <ion-card-title>{{ ficha.name }}</ion-card-title>
+      </ion-card-header>
       <ion-card-content>
-        <div class="exercicio-header">
-          <ion-img src="https://cdn-icons-png.flaticon.com/512/2331/2331970.png"></ion-img>
-          <div>
-            <h4>{{ ex.nome }}</h4>
-            <p>{{ ex.calorias }} Calorias queimadas | {{ ex.tempo }} minutos</p>
-          </div>
-        </div>
-        <ion-progress-bar [value]="ex.progresso" color="success"></ion-progress-bar>
+        <ion-badge color="success" *ngIf="ficha.is_active">Ativo</ion-badge>
+        <p style="margin-top: 5px; font-size: 0.8rem;">{{ ficha.items?.length || 0 }} exercícios</p>
       </ion-card-content>
     </ion-card>
   </div>
+  <ng-template #noFicha>
+    <p class="empty-msg">Nenhuma ficha ativa. Monte seu treino!</p>
+  </ng-template>
 
-  <ion-button expand="block" shape="round" class="btn-criar" color="primary" (click)="mostrarOpcoesExercicio()">
-    Criar exercício
-  </ion-button>
+
+  <div class="section-header">
+    <h3>🏃 Cardio & Performance</h3>
+    <ion-button fill="clear" size="small" routerLink="/geolocalizacao" class="hover-link">
+      Novo <ion-icon name="add-outline" slot="end"></ion-icon>
+    </ion-button>
+  </div>
+
+  <div class="horizontal-scroll" *ngIf="cardios.length > 0; else noCardio">
+    <ion-card *ngFor="let run of cardios" class="scroll-card cardio-card interactable">
+      <ion-card-header>
+        <ion-card-subtitle>{{ run.data_treino | date:'dd/MM' }}</ion-card-subtitle>
+        <ion-card-title>{{ run.tipo }}</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <div class="cardio-stats">
+          <span><ion-icon name="flame-outline"></ion-icon> {{ run.distancia_km }}km</span>
+          <span><ion-icon name="timer-outline"></ion-icon> {{ run.tempo_minutos }}min</span>
+        </div>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <ng-template #noCardio>
+    <p class="empty-msg">Nenhum cardio registrado.</p>
+  </ng-template>
+
+
+  <div class="section-header">
+    <h3>💪 Catálogo de Exercícios</h3>
+    <ion-button fill="clear" size="small" (click)="abrirCriarExercicio()" class="hover-link">
+      + Criar
+    </ion-button>
+  </div>
+
+  <ion-list>
+    <ion-item *ngFor="let ex of exercicios" button class="interactable-item">
+      <ion-icon name="barbell-outline" slot="start" color="primary"></ion-icon>
+      <ion-label>
+        <h2>{{ ex.name }}</h2>
+        <p>{{ ex.grupo_muscular }}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+
+
+  <div class="pr-section" *ngIf="recordes.length > 0">
+    <div class="section-header">
+      <h3>🏆 Pódio de Carga (PRs)</h3>
+    </div>
+    
+    <div class="horizontal-scroll">
+      <div *ngFor="let pr of recordes; let i = index" class="pr-card interactable">
+        <div class="medal" [ngClass]="{'gold': i==0, 'silver': i==1, 'bronze': i==2}">
+          {{ i + 1 }}º
+        </div>
+        <div class="pr-info">
+          <h4>{{ pr.nome }}</h4>
+          <span class="weight">{{ pr.peso }}kg</span>
+          <span class="group">{{ pr.grupo }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 50px;"></div>
 
 </ion-content>

@@ -1,0 +1,43 @@
+ion-content {
+  // Garante que o último card não fique cortado no fim da rolagem
+  --padding-bottom: 80px; 
+}
+
+.header-project {
+  text-align: center;
+  margin-top: 20px;
+  margin-bottom: 20px;
+
+  h1 {
+    font-weight: 800;
+    margin: 5px 0;
+    // Sem cor fixa, vai ser branco no dark mode e preto no light mode
+  }
+
+  p {
+    color: var(--ion-color-medium);
+    margin-bottom: 10px;
+  }
+
+  ion-icon {
+    font-size: 3rem;
+  }
+}
+
+ion-card {
+  margin-bottom: 15px;
+  border-radius: 12px;
+  // O Ionic gerencia a cor de fundo do card automaticamente (cinza escuro no Dark Mode)
+}
+
+ion-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+}
+
+.tech-chips {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 5px;
+}

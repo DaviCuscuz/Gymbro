@@ -1,33 +1,102 @@
-<ion-header>
+<ion-header class="ion-no-border">
   <ion-toolbar color="primary">
     <ion-buttons slot="start">
-      <ion-back-button defaultHref="/home"></ion-back-button>
+      <ion-back-button defaultHref="/home" text=""></ion-back-button>
     </ion-buttons>
     <ion-title>Editar Perfil</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content class="ion-padding">
-  <ion-list>
-    
-    <ion-item>
-      <ion-label position="stacked">Seu Nome</ion-label>
-      <ion-input [(ngModel)]="nome" type="text" placeholder="Ex: João"></ion-input>
-    </ion-item>
+<ion-content class="ion-padding bg-light">
 
-    <ion-item>
-      <ion-label position="stacked">Sua Altura (em cm)</ion-label>
-      <ion-input [(ngModel)]="altura" type="number" placeholder="Ex: 175"></ion-input>
-    </ion-item>
+  <div class="header-msg">
+    <h2>Dados do Atleta 📝</h2>
+    <p>Mantenha seus dados atualizados para calcular seu IMC corretamente.</p>
+  </div>
 
-    <ion-item>
-      <ion-label position="stacked">Seu Peso (em kg)</ion-label>
-      <ion-input [(ngModel)]="peso" type="number" placeholder="Ex: 70"></ion-input>
-    </ion-item>
+  <ion-card class="form-card">
+    <ion-card-header>
+      <ion-card-subtitle>O SHAPE</ion-card-subtitle>
+      <ion-card-title>Medidas Corporais</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="none">
+        <ion-item class="input-item">
+          <ion-input label="Altura (cm)" labelPlacement="stacked" [(ngModel)]="perfil.altura" type="number" placeholder="ex: 180"></ion-input>
+        </ion-item>
+        <ion-item class="input-item">
+          <ion-input label="Peso (kg)" labelPlacement="stacked" [(ngModel)]="perfil.peso" type="number" placeholder="ex: 85.5"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
 
-  </ion-list>
+  <ion-card class="form-card">
+    <ion-card-header>
+      <ion-card-subtitle>BIO</ion-card-subtitle>
+      <ion-card-title>Dados Pessoais</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="none">
+        
+        <ion-item class="input-item">
+          <ion-input label="Nome Completo" labelPlacement="stacked" [(ngModel)]="perfil.nome_completo" type="text"></ion-input>
+        </ion-item>
+        
+        <ion-item class="input-item">
+          <ion-input 
+            label="CPF" 
+            labelPlacement="stacked" 
+            [(ngModel)]="perfil.cpf" 
+            type="tel" 
+            maxlength="14"
+            placeholder="000.000.000-00"
+            (ionInput)="formatarCPF($event)">
+          </ion-input>
+        </ion-item>
+        
+        <ion-item class="input-item">
+          <ion-input 
+            label="Telefone" 
+            labelPlacement="stacked" 
+            [(ngModel)]="perfil.telefone" 
+            type="tel" 
+            maxlength="15"
+            placeholder="(00) 00000-0000"
+            (ionInput)="formatarTelefone($event)">
+          </ion-input>
+        </ion-item>
 
-  <ion-button (click)="salvarPerfil()" expand="block" class="ion-margin-top">
-    Salvar Perfil
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="form-card">
+    <ion-card-header>
+      <ion-card-subtitle>LOCALIZAÇÃO</ion-card-subtitle>
+      <ion-card-title>Endereço</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-list lines="none">
+        <ion-item class="input-item">
+          <ion-input label="Endereço" labelPlacement="stacked" [(ngModel)]="perfil.endereco" type="text"></ion-input>
+        </ion-item>
+        <ion-item class="input-item">
+          <ion-input label="Cidade" labelPlacement="stacked" [(ngModel)]="perfil.cidade" type="text"></ion-input>
+        </ion-item>
+        <ion-item class="input-item">
+          <ion-input label="Estado" labelPlacement="stacked" [(ngModel)]="perfil.estado" type="text"></ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+
+  <div style="height: 20px;"></div>
+
+  <ion-button expand="block" shape="round" size="large" (click)="salvarPerfil()">
+    SALVAR PERFIL
   </ion-button>
+  
+  <div style="height: 50px;"></div>
+
 </ion-content>

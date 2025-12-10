@@ -1,0 +1,42 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-title>GymBro Login</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+  
+  <div style="margin-top: 50px; text-align: center;">
+    <h1>Bem-vindo, Monstro! 🏋️</h1>
+    <p>Faça login para acessar suas fichas.</p>
+  </div>
+
+  <ion-list>
+    <ion-item>
+      <ion-input label="Usuário" labelPlacement="floating" [(ngModel)]="credentials.username" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-input label="Senha" labelPlacement="floating" [(ngModel)]="credentials.password" type="password"></ion-input>
+    </ion-item>
+  </ion-list>
+
+  <ion-button expand="block" (click)="fazerLogin()" style="margin-top: 20px;">
+    ENTRAR
+  </ion-button>
+
+  <div style="margin-top: 15px; text-align: center;">
+    <p style="font-size: 0.9rem; color: #666;">Ainda não tem conta?</p>
+    <ion-button fill="clear" routerLink="/cadastro" size="small">
+      CRIE UMA AGORA
+    </ion-button>
+  </div>
+
+  <ion-toast
+    [isOpen]="isToastOpen"
+    [message]="toastMessage"
+    [duration]="2000"
+    (didDismiss)="isToastOpen = false">
+  </ion-toast>
+
+</ion-content>
