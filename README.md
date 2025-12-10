@@ -49,7 +49,6 @@ Bash
 ## 👨‍💻 Squad de Desenvolvimento
 
 | Nome | Cargo |
-| :--- | :--- |
 | **Davi** | Full Stack Developer |
 | **João Rafael** | Front-end Developer |
 | **Thiago Ribeiro** | Back-end Developer |
