@@ -12,7 +12,11 @@ import { AuthService } from '../services/auth.service';
 import { TreinoService, Exercicio, Ficha, Cardio } from '../services/treino.service';
 import { Router, RouterModule } from '@angular/router';
 import { addIcons } from 'ionicons';
-import { addCircleOutline, barbellOutline, listOutline, timerOutline, flameOutline, trophyOutline, chevronForwardOutline, addOutline } from 'ionicons/icons';
+import { 
+  addCircleOutline, barbellOutline, listOutline, timerOutline, 
+  flameOutline, trophyOutline, chevronForwardOutline, addOutline,
+  createOutline, trashOutline // Novos ícones
+} from 'ionicons/icons';
 
 @Component({
   selector: 'app-home',
@@ -33,11 +37,9 @@ export class HomePage implements OnInit {
   exercicios: Exercicio[] = [];
   fichas: Ficha[] = [];
   cardios: Cardio[] = [];
-  
   imc: string = '--';
   imcStatus: string = '';
   imcColor: string = 'medium';
-  
   recordes: any[] = [];
 
   constructor(
@@ -48,17 +50,23 @@ export class HomePage implements OnInit {
     private alertCtrl: AlertController,
     private toastCtrl: ToastController
   ) {
-    addIcons({ addCircleOutline, barbellOutline, listOutline, timerOutline, flameOutline, trophyOutline, chevronForwardOutline, addOutline });
+    // Registra os ícones usados no HTML
+    addIcons({ 
+      addCircleOutline, barbellOutline, listOutline, timerOutline, 
+      flameOutline, trophyOutline, chevronForwardOutline, addOutline,
+      createOutline, trashOutline 
+    });
   }
 
   ngOnInit() {}
 
+  // Executa toda vez que a tela aparece
   ionViewWillEnter() {
     this.carregarDados();
   }
 
+  // Busca todos os dados do Backend
   carregarDados() {
-    // 1. Perfil e IMC
     this.profileService.getMeuPerfil().subscribe({
       next: (data: UserProfile) => {
         this.perfil = data;
@@ -67,12 +75,10 @@ export class HomePage implements OnInit {
       error: (err: any) => { if (err.status === 401) this.logout(); }
     });
 
-    // 2. Exercícios
     this.treinoService.getExercicios().subscribe({
       next: (data: Exercicio[]) => this.exercicios = data.slice(0, 5)
     });
 
-    // 3. Fichas e Cálculo de PRs
     this.treinoService.getFichas().subscribe({
       next: (data: Ficha[]) => {
         this.fichas = data;
@@ -80,12 +86,12 @@ export class HomePage implements OnInit {
       }
     });
 
-    // 4. Cardio
     this.treinoService.getCardios().subscribe({
       next: (data: Cardio[]) => this.cardios = data
     });
   }
 
+  // Lógica do IMC
   calcularIMC() {
     if (this.perfil?.altura && this.perfil?.peso) {
       const alturaM = this.perfil.altura / 100;
@@ -103,25 +109,21 @@ export class HomePage implements OnInit {
     }
   }
 
+  // Lógica dos Recordes Pessoais (PR)
   calcularPRs(fichas: Ficha[]) {
     const mapPRs = new Map<string, number>();
     const mapGrupos = new Map<string, string>();
 
     fichas.forEach(ficha => {
-      // Verifica se a lista de itens existe
       if(ficha.items) {
         ficha.items.forEach(item => {
-          
-          // --- CORREÇÃO DE SEGURANÇA ---
-          // Verifica se 'exercicio_detalhes' existe antes de ler
+          // Verifica se existem detalhes do exercício
           if (item.exercicio_detalhes) {
-            
             const nome = item.exercicio_detalhes.name;
             const grupo = item.exercicio_detalhes.grupo_muscular;
             const peso = Number(item.peso_adicional_kg); 
   
             if (peso > 0) {
-              // Se o exercício não tá no mapa OU se o peso atual é maior que o recorde antigo
               if (!mapPRs.has(nome) || peso > mapPRs.get(nome)!) {
                 mapPRs.set(nome, peso);
                 mapGrupos.set(nome, grupo);
@@ -132,7 +134,6 @@ export class HomePage implements OnInit {
       }
     });
 
-    // Converte o Mapa em Array, ordena e pega o Top 5
     this.recordes = Array.from(mapPRs, ([name, value]) => ({ 
       nome: name, 
       peso: value,
@@ -140,6 +141,7 @@ export class HomePage implements OnInit {
     })).sort((a, b) => b.peso - a.peso).slice(0, 5);
   }
 
+  // Cria um novo exercício simples
   async abrirCriarExercicio() {
     const alert = await this.alertCtrl.create({
       header: 'Novo Exercício',
@@ -164,6 +166,7 @@ export class HomePage implements OnInit {
     await alert.present();
   }
 
+  // Salva no banco
   salvarExercicio(nome: string, grupo: string) {
     const novo: Exercicio = { name: nome, grupo_muscular: grupo };
     this.treinoService.criarExercicio(novo).subscribe({
@@ -173,6 +176,56 @@ export class HomePage implements OnInit {
       },
       error: () => this.mostrarToast('Erro ao criar exercício.', 'danger')
     });
+  }
+
+  // Abre popup para editar exercício existente
+  async editarExercicio(exercicio: Exercicio) {
+    const alert = await this.alertCtrl.create({
+      header: 'Editar Exercício',
+      inputs: [
+        { name: 'name', type: 'text', value: exercicio.name, placeholder: 'Nome' },
+        { name: 'grupo', type: 'text', value: exercicio.grupo_muscular, placeholder: 'Grupo' }
+      ],
+      buttons: [
+        'Cancelar',
+        {
+          text: 'Salvar',
+          handler: (data) => {
+            const atualizado = { ...exercicio, name: data.name, grupo_muscular: data.grupo };
+            this.treinoService.editarExercicio(exercicio.id!, atualizado).subscribe(() => {
+              this.mostrarToast('Exercício atualizado!', 'success');
+              this.carregarDados();
+            });
+          }
+        }
+      ]
+    });
+    await alert.present();
+  }
+
+  // Pergunta antes de apagar
+  async confirmarExclusaoExercicio(exercicio: Exercicio) {
+    const alert = await this.alertCtrl.create({
+      header: 'Cuidado, Monstro!',
+      message: `Tem certeza que quer apagar o exercício <strong>${exercicio.name}</strong>?`,
+      buttons: [
+        { text: 'Cancelar', role: 'cancel' },
+        {
+          text: 'Sim, Apagar',
+          role: 'destructive', // Deixa vermelho no iOS
+          handler: () => {
+            this.treinoService.deletarExercicio(exercicio.id!).subscribe({
+              next: () => {
+                this.mostrarToast('Exercício removido.', 'success');
+                this.carregarDados();
+              },
+              error: () => this.mostrarToast('Não foi possível apagar.', 'danger')
+            });
+          }
+        }
+      ]
+    });
+    await alert.present();
   }
 
   async mostrarToast(msg: string, color: string) {

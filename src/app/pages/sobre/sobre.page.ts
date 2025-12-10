@@ -3,12 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { 
   IonContent, IonHeader, IonTitle, IonToolbar, 
-  IonButtons, IonMenuButton, // Importante para o Menu
+  IonButtons, IonMenuButton, 
   IonCard, IonCardHeader, IonCardTitle, IonCardContent,
   IonList, IonItem, IonLabel, IonIcon, IonChip
 } from '@ionic/angular/standalone';
 import { addIcons } from 'ionicons';
-import { codeSlashOutline, serverOutline, phonePortraitOutline, personOutline, logoGithub } from 'ionicons/icons';
+import { codeSlashOutline, serverOutline, phonePortraitOutline, personOutline, logoGithub, bugOutline } from 'ionicons/icons';
 
 @Component({
   selector: 'app-sobre',
@@ -28,7 +28,7 @@ export class SobrePage implements OnInit {
   versaoApp = '1.0.0 (Beta)';
 
   constructor() { 
-    addIcons({ codeSlashOutline, serverOutline, phonePortraitOutline, personOutline, logoGithub });
+    addIcons({ codeSlashOutline, serverOutline, phonePortraitOutline, personOutline, logoGithub, bugOutline });
   }
 
   ngOnInit() {

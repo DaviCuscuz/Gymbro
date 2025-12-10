@@ -60,4 +60,9 @@ export const routes: Routes = [
     loadComponent: () => import('./pages/fichas/fichas.page').then( m => m.FichasPage),
     canActivate: [authGuard]
   },
+  {
+    path: 'meus-exercicios',
+    loadComponent: () => import('./pages/meus-exercicios/meus-exercicios').then( m => m.MeusExerciciosPage),
+    canActivate: [authGuard]
+  },
 ];

@@ -22,8 +22,13 @@
           <h2><strong>{{ ficha.name }}</strong></h2>
           <p>{{ ficha.items?.length || 0 }} exercícios</p>
         </ion-label>
+        
         <ion-button slot="end" fill="clear" (click)="abrirAdicionarExercicio(ficha.id!)">
           + Add
+        </ion-button>
+        
+        <ion-button slot="end" fill="clear" color="danger" (click)="apagarFicha(ficha)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
         </ion-button>
       </ion-item>
 
@@ -38,6 +43,10 @@
               <span *ngIf="item.peso_adicional_kg > 0">({{ item.peso_adicional_kg }}kg)</span>
             </p>
           </ion-label>
+
+          <ion-button slot="end" fill="clear" size="small" color="medium" (click)="removerItem(item)">
+            <ion-icon slot="icon-only" name="close-circle-outline"></ion-icon>
+          </ion-button>
         </ion-item>
 
         <ion-item *ngIf="!ficha.items || ficha.items.length === 0" lines="none">

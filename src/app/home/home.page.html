@@ -89,12 +89,25 @@
   </div>
 
   <ion-list>
-    <ion-item *ngFor="let ex of exercicios" button class="interactable-item">
+    <ion-item *ngFor="let ex of exercicios" class="interactable-item">
       <ion-icon name="barbell-outline" slot="start" color="primary"></ion-icon>
+      
       <ion-label>
         <h2>{{ ex.name }}</h2>
         <p>{{ ex.grupo_muscular }}</p>
       </ion-label>
+
+      <div slot="end" *ngIf="ex.created_by">
+        <ion-button fill="clear" color="medium" (click)="editarExercicio(ex)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="danger" (click)="confirmarExclusaoExercicio(ex)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+      
+      <ion-badge slot="end" color="light" *ngIf="!ex.created_by">Sistema</ion-badge>
+
     </ion-item>
   </ion-list>
 

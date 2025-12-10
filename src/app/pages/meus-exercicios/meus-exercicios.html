@@ -1,0 +1,43 @@
+<ion-header [translucent]="true">
+  <ion-toolbar color="primary">
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/home"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Meus Exercícios</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="ion-padding">
+
+  <ion-list>
+    <ion-item *ngFor="let ex of meusExercicios">
+      <ion-icon name="barbell-outline" slot="start" color="tertiary"></ion-icon>
+      
+      <ion-label>
+        <h2>{{ ex.name }}</h2>
+        <p>{{ ex.grupo_muscular }}</p>
+      </ion-label>
+
+      <div slot="end">
+        <ion-button fill="clear" color="medium" (click)="editarExercicio(ex)">
+          <ion-icon slot="icon-only" name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button fill="clear" color="danger" (click)="excluirExercicio(ex)">
+          <ion-icon slot="icon-only" name="trash-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </ion-item>
+  </ion-list>
+
+  <div *ngIf="meusExercicios.length === 0" class="empty-state">
+    <h3>Nenhum exercício criado.</h3>
+    <p>Clique no + para adicionar seus próprios movimentos.</p>
+  </div>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button (click)="criarExercicio()">
+      <ion-icon name="add-outline"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

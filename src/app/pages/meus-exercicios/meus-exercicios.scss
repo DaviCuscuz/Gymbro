@@ -1,0 +1,14 @@
+.empty-state {
+  text-align: center;
+  margin-top: 50px;
+  color: var(--ion-color-medium);
+  
+  h3 {
+    font-weight: bold;
+    font-size: 1.2rem;
+  }
+}
+
+ion-list {
+  background: transparent;
+}
