@@ -1,29 +1,25 @@
----
-
-### README do Frontend (Ionic) 📱
-
-Crie um arquivo chamado `README.md` na pasta raiz do Ionic (junto com o `ionic.config.json`) e cole isso:
-
-```markdown
 # 📱 GymBro Mobile
 
 Aplicação híbrida moderna desenvolvida com **Ionic 7** e **Angular Standalone Components**. Focada na experiência do usuário (UX), performance e gestão completa de treinos de musculação.
+
+Este projeto consome a **GymBro API** (Django) para persistência de dados.
 
 ## 🚀 Tecnologias
 
 - **Ionic 7** (Framework UI)
 - **Angular 17+** (Standalone, sem NgModules)
 - **Capacitor** (Acesso nativo: Câmera, GPS)
-- **TypeScript**
+- **TypeScript** (Lógica tipada)
 - **SCSS** (Estilização com Dark Mode nativo)
 
-## 📱 Funcionalidades
+## 📲 Funcionalidades
 
-- ✅ **Dashboard:** Visão geral com IMC, Atalhos e Carrossel de Recordes (PRs).
-- ✅ **Meus Treinos:** Criação e execução de fichas de treino.
-- ✅ **Meus Exercícios:** Cadastro de exercícios personalizados.
-- ✅ **Perfil Pro:** Edição de dados com máscaras de input (CPF/Telefone).
-- ✅ **Nativo:** Acesso à Câmera e Geolocalização (GPS).
+- ✅ **Dashboard:** Visão geral com cálculo automático de IMC e Carrossel de Recordes (PRs).
+- ✅ **Gestão de Treinos:** Criação de fichas, adição de exercícios, séries e cargas.
+- ✅ **Meus Exercícios:** CRUD completo para exercícios personalizados do usuário.
+- ✅ **Perfil Pro:** Edição de dados com máscaras de input automáticas (CPF e Telefone).
+- ✅ **Funções Nativas:** Integração com Câmera e Geolocalização (GPS) via Capacitor.
+- ✅ **UX/UI:** Dark Mode nativo, Feedback visual (Toasts/Alerts) e validações de segurança.
 
 ## 📦 Como Rodar
 
@@ -37,14 +33,14 @@ Aplicação híbrida moderna desenvolvida com **Ionic 7** e **Angular Standalone
 
 npm install
 
-Rode no navegador:
+Rode no navegador (Ambiente de Dev):
 Bash
 
-    ionic serve
+ionic serve
 
-    Configuração da API:
+Conexão com API:
 
-        O app espera que o Backend esteja rodando em http://127.0.0.1:8000. Ajuste em src/app/services/ se necessário.
+    Certifique-se que o Backend Django esteja rodando em http://127.0.0.1:8000.
 
 ## 👨‍💻 Squad de Desenvolvimento
 
