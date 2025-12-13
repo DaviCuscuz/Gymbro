@@ -1,54 +1,53 @@
-# 🏋️‍♂️ Gymbro - Seu Parceiro de Treino
+# 📱 GymBro Mobile
 
-> "No pain, no gain." 💪
+Aplicação híbrida moderna desenvolvida com **Ionic 7** e **Angular Standalone Components**. Focada na experiência do usuário (UX), performance e gestão completa de treinos de musculação.
 
-O **Gymbro** é uma aplicação móvel desenvolvida para gerenciamento de treinos de musculação e monitoramento de atividades cardiovasculares. O projeto foca em permitir que o usuário crie suas próprias fichas, registre exercícios personalizados e monitore corridas com GPS.
+Este projeto consome a **GymBro API** (Django) para persistência de dados.
 
-## 🚀 Funcionalidades
+## 🚀 Tecnologias
 
-* **🔐 Autenticação Segura:** Login e Cadastro de usuários com Token (Django Auth).
-* **📋 Gestão de Fichas:** Criação e organização de rotinas de treino (A, B, C...).
-* **💪 Catálogo Híbrido de Exercícios:** * Exercícios Globais (Padrão do sistema).
-    * Exercícios Customizados (Criados pelo próprio usuário).
-* **🏃 Módulo Cardio:** Rastreamento de corridas com registro de tempo, distância e rota GPS.
-* **📱 Interface Moderna:** Desenvolvido com Ionic Framework & Angular.
+- **Ionic 7** (Framework UI)
+- **Angular 17+** (Standalone, sem NgModules)
+- **Capacitor** (Acesso nativo: Câmera, GPS)
+- **TypeScript** (Lógica tipada)
+- **SCSS** (Estilização com Dark Mode nativo)
 
-## 🛠️ Tecnologias Utilizadas
+## 📲 Funcionalidades
 
-* **Frontend:** Ionic 7, Angular, TypeScript.
-* **Backend:** Python, Django REST Framework (API Integrada).
-* **Armazenamento:** SQLite (Dev) / PostgreSQL (Prod).
-* **Integração:** HTTP Client, Geolocation API.
+- ✅ **Dashboard:** Visão geral com cálculo automático de IMC e Carrossel de Recordes (PRs).
+- ✅ **Gestão de Treinos:** Criação de fichas, adição de exercícios, séries e cargas.
+- ✅ **Meus Exercícios:** CRUD completo para exercícios personalizados do usuário.
+- ✅ **Perfil Pro:** Edição de dados com máscaras de input automáticas (CPF e Telefone).
+- ✅ **Funções Nativas:** Integração com Câmera e Geolocalização (GPS) via Capacitor.
+- ✅ **UX/UI:** Dark Mode nativo, Feedback visual (Toasts/Alerts) e validações de segurança.
 
-## ⚙️ Como Rodar o Projeto
+## 📦 Como Rodar
 
-### Pré-requisitos
-* Node.js e npm instalados.
-* Ionic CLI instalado globalmente (`npm install -g @ionic/cli`).
-* Backend API rodando localmente (Django).
+1. **Clone o repositório:**
+   ```bash
+   git clone <SEU_LINK_DO_GITHUB_FRONTEND>
+   cd gymbro-frontend
 
-### Passos
-1.  Clone o repositório:
-    ```bash
-    git clone [https://github.com/DaviCuscuz/Gymbro.git](https://github.com/DaviCuscuz/Gymbro.git)
-    ```
-2.  Entre na pasta do projeto:
-    ```bash
-    cd Gymbro
-    ```
-3.  Instale as dependências:
-    ```bash
-    npm install
-    ```
-4.  Configure o ambiente (se necessário, ajuste o IP da API em `src/environments/environment.ts`).
-5.  Rode a aplicação:
-    ```bash
-    ionic serve
-    ```
+    Instale as dependências:
+    Bash
 
-## 🤝 Contribuição
+npm install
 
-Este é um projeto acadêmico/pessoal. Sugestões e PRs são bem-vindos!
+Rode no navegador (Ambiente de Dev):
+Bash
 
----
-Desenvolvido por **DaviCuscuz** 🚀
+ionic serve
+
+Conexão com API:
+
+    Certifique-se que o Backend Django esteja rodando em http://127.0.0.1:8000.
+
+
+## 👨‍💻 Squad de Desenvolvimento
+
+🚀 **O Time que fez acontecer:**
+
+* 🦁 **Davi** — *Full Stack Developer*
+* 🎨 **João Rafael** — *Front-end Developer*
+* ⚙️ **Thiago Ribeiro** — *Back-end Developer*
+* 🐛 **André** — *QA / Tester*
