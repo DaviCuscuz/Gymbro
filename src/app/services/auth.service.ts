@@ -12,7 +12,7 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
-  // 1. Função de Login (Já existia)
+  // 1. Função de Login
   login(username: string, password: string) {
     return this.http.post<any>(`${this.apiUrl}/token/`, { username, password }).pipe(
       tap(response => {
@@ -24,9 +24,9 @@ export class AuthService {
     );
   }
 
-  // 2. Função de Cadastro (A QUE ESTAVA FALTANDO!)
+  // 2. Função de Cadastro 
   register(userData: any): Observable<any> {
-    // Envia { username, email, password } para o Django criar o usuário
+    // Envia os dados para o Django criar o usuário
     return this.http.post(`${this.apiUrl}/registrar/`, userData);
   }
 

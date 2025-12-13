@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { tap } from 'rxjs/operators';
 
-// Tipagem das respostas
 export interface LoginResponse {
   token: string;
   message: string;
@@ -17,7 +16,6 @@ export interface RegisterResponse {
   providedIn: 'root'
 })
 export class AuthService {
-  // Pega a URL do environment.ts (http://127.0.0.1:8000/api)
   private apiUrl = environment.apiUrl;
   private tokenKey = 'gymbro_token'; // Nome da chave no LocalStorage
 

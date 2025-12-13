@@ -44,7 +44,7 @@ export class AppComponent {
     { title: 'Sobre o App', url: '/sobre', icon: 'information-circle' },
   ];
 
-  // MENU NATIVO (Ferramentas)
+  // MENU NATIVO 
   public nativePages = [
     { title: 'Câmera & Galeria', url: '/camera', icon: 'camera' },
     { title: 'GPS (Mapa)', url: '/geolocalizacao', icon: 'navigate' },

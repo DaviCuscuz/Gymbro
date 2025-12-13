@@ -1,5 +1,4 @@
 ion-content {
-  // Garante que o último card não fique cortado no fim da rolagem
   --padding-bottom: 80px; 
 }
 
@@ -11,7 +10,6 @@ ion-content {
   h1 {
     font-weight: 800;
     margin: 5px 0;
-    // Sem cor fixa, vai ser branco no dark mode e preto no light mode
   }
 
   p {
@@ -27,7 +25,6 @@ ion-content {
 ion-card {
   margin-bottom: 15px;
   border-radius: 12px;
-  // O Ionic gerencia a cor de fundo do card automaticamente (cinza escuro no Dark Mode)
 }
 
 ion-card-title {

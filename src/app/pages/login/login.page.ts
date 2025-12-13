@@ -5,7 +5,7 @@ import { Router, RouterModule } from '@angular/router';
 import { 
   IonContent, IonHeader, IonTitle, IonToolbar, 
   IonItem, IonInput, IonButton, IonToast, IonList,
-  MenuController // <--- 1. Importe o MenuController
+  MenuController
 } from '@ionic/angular/standalone';
 import { AuthService } from '../../services/auth.service';
 
@@ -18,7 +18,6 @@ import { AuthService } from '../../services/auth.service';
     CommonModule, FormsModule, RouterModule, 
     IonContent, IonHeader, IonTitle, IonToolbar, 
     IonItem, IonInput, IonButton, IonToast, IonList 
-    // Não precisa importar MenuController aqui nos imports visuais
   ]
 })
 export class LoginPage {
@@ -45,10 +44,8 @@ export class LoginPage {
   }
 
   async fazerLogin() {
-    // ... seu código de login continua igual ...
     this.authService.login(this.credentials.username, this.credentials.password).subscribe({
       next: () => {
-        // Ao ir para a Home, o ionViewDidLeave vai reativar o menu automaticamente
         this.router.navigate(['/home']);
       },
       error: (err: any) => {

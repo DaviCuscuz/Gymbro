@@ -61,7 +61,7 @@ export class ConfiguracoesPage implements OnInit {
     });
   }
 
-  // --- MÁSCARAS (Input Masks) ---
+  // Input Masks
 
   formatarCPF(event: any) {
     let valor = event.target.value.replace(/\D/g, ''); // Remove letras
@@ -77,8 +77,8 @@ export class ConfiguracoesPage implements OnInit {
       valor = valor.replace(/(\d{3})(\d+)/, '$1.$2');
     }
 
-    event.target.value = valor; // Atualiza o input visualmente
-    this.perfil.cpf = valor;    // Atualiza o modelo
+    event.target.value = valor; 
+    this.perfil.cpf = valor;    
   }
 
   formatarTelefone(event: any) {

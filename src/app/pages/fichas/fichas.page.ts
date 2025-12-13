@@ -58,7 +58,6 @@ export class FichasPage implements OnInit {
     this.treinoService.getExercicios().subscribe(res => this.exercicios = res);
   }
 
-  // Cria ficha
   async criarFicha() {
     const alert = await this.alertCtrl.create({
       header: 'Nova Ficha',
@@ -80,7 +79,6 @@ export class FichasPage implements OnInit {
     await alert.present();
   }
 
-  // Apaga a ficha inteira
   async apagarFicha(ficha: Ficha) {
     const alert = await this.alertCtrl.create({
       header: 'Apagar Treino?',
@@ -102,7 +100,6 @@ export class FichasPage implements OnInit {
     await alert.present();
   }
 
-  // Remove um exercício de dentro da ficha
   async removerItem(item: any) {
     const alert = await this.alertCtrl.create({
       header: 'Remover Exercício',
@@ -124,7 +121,6 @@ export class FichasPage implements OnInit {
     await alert.present();
   }
 
-  // Métodos do Modal
   abrirAdicionarExercicio(fichaId: number) {
     this.fichaSelecionadaId = fichaId;
     this.novoItem.exercicio_id = 0;

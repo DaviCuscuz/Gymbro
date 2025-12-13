@@ -1,4 +1,3 @@
-// Layout do Card IMC
 .imc-layout {
   display: flex;
   justify-content: space-between;
@@ -9,7 +8,6 @@
   font-weight: 800;
 }
 
-// Headers das Seções
 .section-header {
   display: flex;
   justify-content: space-between;
@@ -20,18 +18,16 @@
   h3 { font-size: 1.1rem; font-weight: 700; margin: 0; }
 }
 
-// LINK VEJA MAIS COM HOVER
 .hover-link {
   transition: all 0.2s ease;
   font-weight: 600;
   
   &:hover {
-    transform: translateX(5px); // Move levemente para a direita
+    transform: translateX(5px); 
     --color: var(--ion-color-primary-shade);
   }
 }
 
-// Scroll Horizontal
 .horizontal-scroll {
   display: flex;
   overflow-x: auto;
@@ -46,14 +42,13 @@
   border-radius: 12px;
 }
 
-// CLASSE GERAL PARA HOVER EM CARDS
 .interactable {
   transition: transform 0.2s, box-shadow 0.2s;
   
   &:hover {
-    transform: translateY(-3px); // Sobe um pouquinho
-    box-shadow: 0 6px 12px rgba(0,0,0,0.3); // Sombra mais forte
-    --background: var(--ion-color-step-50); // Fica levemente mais claro
+    transform: translateY(-3px); 
+    box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+    --background: var(--ion-color-step-50); 
   }
 }
 

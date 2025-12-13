@@ -28,9 +28,7 @@ export class MeusExerciciosPage implements OnInit {
   constructor(
     private treinoService: TreinoService,
     private alertCtrl: AlertController,
-    private toastCtrl: ToastController
-  ) {
-    // Registrando os ícones usados nesta página
+    private toastCtrl: ToastController) {
     addIcons({ addOutline, createOutline, trashOutline, barbellOutline });
   }
 
@@ -53,7 +51,6 @@ export class MeusExerciciosPage implements OnInit {
     });
   }
 
-  // 1. CRIAR
   async criarExercicio() {
     const alert = await this.alertCtrl.create({
       header: 'Novo Exercício',
@@ -83,7 +80,6 @@ export class MeusExerciciosPage implements OnInit {
     await alert.present();
   }
 
-  // 2. EDITAR
   async editarExercicio(ex: Exercicio) {
     const alert = await this.alertCtrl.create({
       header: 'Editar',
@@ -111,7 +107,6 @@ export class MeusExerciciosPage implements OnInit {
     await alert.present();
   }
 
-  // 3. EXCLUIR
   async excluirExercicio(ex: Exercicio) {
     const alert = await this.alertCtrl.create({
       header: 'Excluir?',

@@ -15,7 +15,7 @@ import { addIcons } from 'ionicons';
 import { 
   addCircleOutline, barbellOutline, listOutline, timerOutline, 
   flameOutline, trophyOutline, chevronForwardOutline, addOutline,
-  createOutline, trashOutline // Novos ícones
+  createOutline, trashOutline 
 } from 'ionicons/icons';
 
 @Component({
@@ -50,7 +50,6 @@ export class HomePage implements OnInit {
     private alertCtrl: AlertController,
     private toastCtrl: ToastController
   ) {
-    // Registra os ícones usados no HTML
     addIcons({ 
       addCircleOutline, barbellOutline, listOutline, timerOutline, 
       flameOutline, trophyOutline, chevronForwardOutline, addOutline,
@@ -60,12 +59,10 @@ export class HomePage implements OnInit {
 
   ngOnInit() {}
 
-  // Executa toda vez que a tela aparece
   ionViewWillEnter() {
     this.carregarDados();
   }
 
-  // Busca todos os dados do Backend
   carregarDados() {
     this.profileService.getMeuPerfil().subscribe({
       next: (data: UserProfile) => {
@@ -91,7 +88,6 @@ export class HomePage implements OnInit {
     });
   }
 
-  // Lógica do IMC
   calcularIMC() {
     if (this.perfil?.altura && this.perfil?.peso) {
       const alturaM = this.perfil.altura / 100;
@@ -109,7 +105,6 @@ export class HomePage implements OnInit {
     }
   }
 
-  // Lógica dos Recordes Pessoais (PR)
   calcularPRs(fichas: Ficha[]) {
     const mapPRs = new Map<string, number>();
     const mapGrupos = new Map<string, string>();
@@ -117,7 +112,6 @@ export class HomePage implements OnInit {
     fichas.forEach(ficha => {
       if(ficha.items) {
         ficha.items.forEach(item => {
-          // Verifica se existem detalhes do exercício
           if (item.exercicio_detalhes) {
             const nome = item.exercicio_detalhes.name;
             const grupo = item.exercicio_detalhes.grupo_muscular;
@@ -141,7 +135,6 @@ export class HomePage implements OnInit {
     })).sort((a, b) => b.peso - a.peso).slice(0, 5);
   }
 
-  // Cria um novo exercício simples
   async abrirCriarExercicio() {
     const alert = await this.alertCtrl.create({
       header: 'Novo Exercício',
@@ -166,7 +159,6 @@ export class HomePage implements OnInit {
     await alert.present();
   }
 
-  // Salva no banco
   salvarExercicio(nome: string, grupo: string) {
     const novo: Exercicio = { name: nome, grupo_muscular: grupo };
     this.treinoService.criarExercicio(novo).subscribe({
@@ -178,7 +170,6 @@ export class HomePage implements OnInit {
     });
   }
 
-  // Abre popup para editar exercício existente
   async editarExercicio(exercicio: Exercicio) {
     const alert = await this.alertCtrl.create({
       header: 'Editar Exercício',
@@ -203,7 +194,6 @@ export class HomePage implements OnInit {
     await alert.present();
   }
 
-  // Pergunta antes de apagar
   async confirmarExclusaoExercicio(exercicio: Exercicio) {
     const alert = await this.alertCtrl.create({
       header: 'Cuidado, Monstro!',
@@ -212,7 +202,7 @@ export class HomePage implements OnInit {
         { text: 'Cancelar', role: 'cancel' },
         {
           text: 'Sim, Apagar',
-          role: 'destructive', // Deixa vermelho no iOS
+          role: 'destructive', 
           handler: () => {
             this.treinoService.deletarExercicio(exercicio.id!).subscribe({
               next: () => {

@@ -1,5 +1,5 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './guards/auth.guard'; // <--- Importe o Guard aqui
+import { authGuard } from './guards/auth.guard';
 
 export const routes: Routes = [
   {
@@ -50,10 +50,6 @@ export const routes: Routes = [
     path: 'galeria',
     loadComponent: () => import('./galeria/galeria.page').then( m => m.GaleriaPage),
     canActivate: [authGuard]
-  },
-  {
-    path: 'fichas',
-    loadComponent: () => import('./pages/fichas/fichas.page').then( m => m.FichasPage)
   },
   {
     path: 'fichas',

@@ -8,10 +8,10 @@ export interface UserProfile {
   nome_completo?: string;
   email?: string;
   telefone?: string;
-  cpf?: string;        // <--- Novo
-  endereco?: string;   // <--- Novo
-  cidade?: string;     // <--- O erro pedia isso
-  estado?: string;     // <--- O erro pedia isso
+  cpf?: string;        
+  endereco?: string;   
+  cidade?: string;     
+  estado?: string;     
   altura?: number;
   peso?: number;
 }

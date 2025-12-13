@@ -1,10 +1,7 @@
-// Removemos cores fixas para o Dark Mode funcionar nativamente
-
 .header-msg {
   text-align: center;
   margin-bottom: 20px;
   h2 { 
-    // Removemos a cor fixa, agora se adapta (Branco no Dark, Preto no Light)
     font-weight: 800; 
     margin-bottom: 5px; 
   }
@@ -18,20 +15,15 @@
   box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   border-radius: 16px;
   margin-bottom: 15px;
-  // O Ionic vai pintar o fundo de cinza escuro no Dark Mode sozinho
 }
 
 .input-item {
-  // Removemos o fundo cinza claro forçado
-  // Agora ele fica transparente ou com a cor do item padrão
   --border-radius: 8px;
   margin-bottom: 10px;
   
-  // Destaque sutil no input
   border: 1px solid var(--ion-color-step-100);
 }
 
-// Efeito Hover nos Botões Principais
 ion-button:hover {
   --opacity: 0.9;
   transform: scale(1.02);
